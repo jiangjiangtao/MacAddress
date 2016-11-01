@@ -91,7 +91,7 @@ public class MacAddressPlugin extends CordovaPlugin {
                 }
             }
         }catch (Exception e){
-            return "00:00:00:00:00:00";
+            return "11:11:11:11:11:11";
         }
         return "00:00:00:00:00:00";
     }
