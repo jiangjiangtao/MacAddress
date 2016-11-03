@@ -105,7 +105,7 @@ public class MacAddressPlugin extends CordovaPlugin {
      */
    private String getImei() {
          try{
-                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                TelephonyManager telephonyManager = (TelephonyManager)  this.cordova.getActivity().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
                 String imei = telephonyManager.getDeviceId();
                 if (imei != null) return imei;
                 else return "0";
