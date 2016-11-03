@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.telephony.TelephonyManager;
 import android.net.wifi.WifiManager;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
@@ -37,11 +38,13 @@ public class MacAddressPlugin extends CordovaPlugin {
         if (action.equals("getMacAddress")) {
 
             String macAddress = this.getMacAddress();
+            String imei = this.getImei();
 
             if (macAddress != null) {
                 JSONObject JSONresult = new JSONObject();
                 try {
                     JSONresult.put("mac", macAddress);
+                    JSONresult.put("imei",imei);
                     PluginResult r = new PluginResult(PluginResult.Status.OK,
                             JSONresult);
                     callbackContext.success(macAddress);
@@ -95,4 +98,20 @@ public class MacAddressPlugin extends CordovaPlugin {
         }
         return "00:00:00:00:00:00";
     }
+     /**
+     * Gets the imei.
+     * 
+     * @return the imei
+     */
+   private String getImei() {
+         try{
+                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                String imei = telephonyManager.getDeviceId();
+                if (imei != null) return imei;
+                else return "0";
+            }catch (Exception e){
+                return "-1";
+            }
+        return "0";
+   }
 }
